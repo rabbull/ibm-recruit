@@ -1,173 +1,87 @@
 <%@ page language="java" contentType="text/HTML; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%--
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <HTML>
     <head>
         <meta charset="utf-8">
-        <title>
-            IBM 俱乐部招新报名表
-        </title>
-        <style>
-            table, td, th {
-                font-family: 'Times New Roman', Times, serif;
-                color: black;
-                border: 1px solid black;
-                border-collapse: collapse;
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up Form</title>
+
+        <link href="styles.css" rel="stylesheet" type="text/css"/>
+
+        <script>
+            var interest_list = ["development", "office", "publicity"];
+            function binarize() {
+                var length = interest_list.length;
+                var result = 0;
+                for (i = 0; i < length; i ++) {
+                    if (document.getElementById(interest_list[i]).checked) {
+                        result += Math.pow(2, i);
+                    }
+                }
+                document.getElementById("interests").value = result;
             }
 
-            .title {
-                width: 100px;
+            function trySubmit() {
+                console.log("fuck");
+                let form = document.forms["reg"];
+                binarize();
+                console.log(document.getElementById("interests").value);
+                if (form['interests'].value == "0") {
+                    alert("please select at least one interest");
+                    return false;
+                } else {
+                    form.submit();
+                }
             }
-
-            .subtitle {
-                width: 60px;
-            }
-
-            button {
-                width: 100px;
-                margin-right: 59px;
-                margin-top: 10px;
-            }
-
-            .header {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 20px;
-                color: black;
-            }
-        </style>
+        </script>
     </head>
 
+
     <body>
-        <div class="header">
-            IBM俱乐部2018年度报名表
-        </div>
-        <form method="POST" action="signup.action">   <!-- <===================================== need to be completed -->
-            <table>
-                <th rowspan="7" class="title">基本信息</th>
-                <tr>
-                    <th class="subtitle">姓名</th>
-                    <td class="basic_info">
-                        <input type="text" name="username" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="subtitle">学号</th>
-                    <td class="basic_info">
-                            <input type="text" name="stuid" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="subtitle">年级</th>
-                    <td class="basic_info">
-                            <input type="text" name="session" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="subtitle">学院</th>
-                    <td class="basic_info">
-                            <input type="text" name="college" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="subtitle">专业</th>
-                    <td class="basic_info">
-                            <input type="text" name="profession" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="subtitle">手机</th>
-                    <td class="basic_info">
-                            <input type="text" name="tel" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="title">自我介绍</th>
-                    <td colspan="2">
-                        <textarea type="text"
-                            name="selfintro"
-                            maxlength="4096"
-                            cols="30"
-                            rows="6"
-                            placeholder="内容要求：包括但不仅限于加入社团的目的、与社团活动方向相关的个人长短期目标&#10;长度要求：200字以内"
-                            style="overflow:scroll; overflow-y:hidden; overflow-x:hidden"
-                            <%--onfocus="--%>
-                                <%--window.activeobj=this;--%>
-                                <%--this.clock=setInterval(() => {--%>
-                                    <%--activeobj.style.height=activeobj.scrollHeight+'px'--%>
-                                <%--}, 200);"--%
-                                  required ></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="title">期望职位</th>
-                    <td colspan="2">
-                        <input type="checkbox" name="publicity"> 宣传部<br />
-                        <input type="checkbox" name="office"> 办公室<br />
-                        <input type="checkbox" name="technology"> 技术部<br />
-                    </td>
-                </tr>
-            </table>
-            <button type="submit" name="submit" value="submit">提交</button>
+        <form action="" method="post" name="reg">
+            <h1>Sign Up</h1>
+            <fieldset>
+                <legend><span class="number">1</span>Your basic info</legend>
+                
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="password">Student ID:</label>
+                <input type="text" id="password" name="student_id" required>
+                
+                <label for="password">College:</label>
+                <input type="text" id="college" name="college" required>
+                
+                <label for="password">Profession:</label>
+                <input type="text" id="profession" name="profession" required>
+            </fieldset>
+            
+            <fieldset>
+                <legend><span class="number">2</span>Contact information</legend>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="tel">Tel:</label>
+                <input type="text" id="tel" name="tel" required>
+            </fieldset>
+        
+            <fieldset>
+                <legend><span class="number">3</span>Your profile</legend>
+                <label for="bio">Brief Personal Statement:</label>
+                <textarea id="bio" name="user_bio" placeholder="No more than 400 charactors (i.e. no more than 200 Chinese charactors)." required></textarea>
+                <label>Interests:</label>
+                <input type="checkbox" id="development" name="development"><label class="light" for="development">Development</label><br>
+                <input type="checkbox" id="office" name="office"><label class="light" for="design">Office</label><br>
+                <input type="checkbox" id="publicity" name="publicity"><label class="light" for="business">Publicity</label>
+                <input type="hidden" id="interests" name="interests">
+            </fieldset>
+            
+            <button type="button" onclick="return trySubmit();">Submit</button>
         </form>
+        
     </body>
 </HTML>
-
-<%-- <script>
-    setInterval(() => {
-        window.location.reload();
-    }, 500);
-</script> --%
---%>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Sign Up Form</title>
-	
-	<!-- on debug -->
-	<!-- <meta http-equiv="refresh" content="5"> -->
-
-	<style>
-	*, *:before, *:after {
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-	}
-
-	body {
-		font-family: 'Nunito', sans-serif;
-		color: #384047;
-	}
-
-	form {
-		max-width: 300px;
-		margin: 10px auto;
-		padding: 10px 20px;
-		background: #f4f7f8;
-		border-radius: 8px;
-	}
-
-	h1 {
-		margin: 0 0 30px 0;
-		text-align: center;
-	}
-
-	input[type="text"],
-	input[type="password"],
-	input[type="date"],
-	input[type="datetime"],
-	input[type="email"],
-	input[type="number"],
-	input[type="search"],
-	input[type="tel"],
-	input[type="time"],
-	input[type="url"],
-	textarea,
-	select {
-		background: rgba(255,255,255,0.1);
-		border: none;
-		font-size: 16px;
-		height: auto;
-		margin: 0;
