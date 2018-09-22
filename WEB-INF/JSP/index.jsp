@@ -3,43 +3,16 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <HTML>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up Form</title>
-
         <link href="styles.css" rel="stylesheet" type="text/css"/>
-
-        <script>
-            var interest_list = ["development", "office", "publicity"];
-            function binarize() {
-                var length = interest_list.length;
-                var result = 0;
-                for (i = 0; i < length; i ++) {
-                    if (document.getElementById(interest_list[i]).checked) {
-                        result += Math.pow(2, i);
-                    }
-                }
-                document.getElementById("interests").value = result;
-            }
-
-            function trySubmit() {
-                console.log("fuck");
-                let form = document.forms["reg"];
-                binarize();
-                console.log(document.getElementById("interests").value);
-                if (form['interests'].value == "0") {
-                    alert("please select at least one interest");
-                    return false;
-                } else {
-                    form.submit();
-                }
-            }
-        </script>
+        <script type="text/javascript" src="submit.js"></script>
     </head>
-
 
     <body>
         <form action="" method="post" name="reg">
@@ -82,6 +55,5 @@
             
             <button type="button" onclick="return trySubmit();">Submit</button>
         </form>
-        
     </body>
 </HTML>
